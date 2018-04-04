@@ -22,11 +22,11 @@ namespace PermittedStations
                 var filename = @"s:\\FareGroupPermittedStations_v1.0.xml";
                 var doc = XDocument.Load(filename);
                 var result = doc.Descendants("PermittedStations")
-                    .Where(x=>x?.Attribute("FareLocationNlc").Value == origin && (string.IsNullOrEmpty(dest) || x?.Attribute("FareGroupNlc").Value == dest))
-                    .Select(y => new { Route = y.Attribute("RouteCode").Value,
-                                       EndDate = y.Attribute("EndDate").Value,
-                                       StartDate = y.Attribute("StartDate").Value,
-                                       Dest = y.Attribute("FareGroupNlc").Value,
+                    .Where(x=>x.Attribute("FareLocationNlc")?.Value == origin && (string.IsNullOrEmpty(dest) || x.Attribute("FareGroupNlc")?.Value == dest))
+                    .Select(y => new { Route = y.Attribute("RouteCode")?.Value,
+                                       EndDate = y.Attribute("EndDate")?.Value,
+                                       StartDate = y.Attribute("StartDate")?.Value,
+                                       Dest = y.Attribute("FareGroupNlc")?.Value,
                                        CrsList = y.Elements("Crs").Select(z=>z.Value).ToList() });
                 foreach (var item in result)
                 {
